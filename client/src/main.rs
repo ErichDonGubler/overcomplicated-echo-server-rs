@@ -39,7 +39,7 @@ fn main() -> IoResult<()> {
             IoErrorKind::Other,
             format!(
                 "message provided not echoed, got something else; received {:?}",
-                BufDisplay(&buf)
+                BufDisplay(&buf[..bytes_read])
             ),
         ));
     }
