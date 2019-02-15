@@ -101,6 +101,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "relay"
+version = "0.1.0"
+dependencies = [
+ "shared 0.1.0",
+ "structopt 0.2.14 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "relay-server"
+version = "0.1.0"
+dependencies = [
+ "shared 0.1.0",
+ "structopt 0.2.14 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "server"
 version = "0.1.0"
 dependencies = [
