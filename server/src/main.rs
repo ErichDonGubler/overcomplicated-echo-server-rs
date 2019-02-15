@@ -29,7 +29,7 @@ fn main() -> IoResult<()> {
         match read_validated_message_from_stream(&mut buf, &mut stream) {
             Ok(bytes_read) => {
                 println!("Got message {:?} ", BufDisplay(&buf[..bytes_read]));
-                stream.write(&buf[..bytes_read])?;
+                stream.write_all(&buf[..bytes_read])?;
             }
             Err(e) => eprintln!("Error: {}", e),
         }

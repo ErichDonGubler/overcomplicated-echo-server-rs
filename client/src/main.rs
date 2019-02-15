@@ -26,7 +26,7 @@ fn main() -> IoResult<()> {
 
     let mut stream = TcpStream::connect(server)?;
 
-    stream.write(&message.as_bytes()[..message.len()])?;
+    stream.write_all(&message.as_bytes()[..message.len()])?;
     println!("Message sent.");
     stream.shutdown(Shutdown::Write)?;
 
