@@ -1,7 +1,7 @@
 use {
-    shared::{BufDisplay, BUF_SIZE},
+    shared::{read_validated_message_from_stream, BufDisplay, BUF_SIZE},
     std::{
-        io::{Read, Result as IoResult, Write},
+        io::{Result as IoResult, Write},
         net::{Ipv4Addr, SocketAddr, SocketAddrV4, TcpListener},
     },
     structopt::StructOpt,
@@ -26,14 +26,12 @@ fn main() -> IoResult<()> {
         println!("Got connection from address {}", addr);
         let mut buf = [0; BUF_SIZE]; // OPT: MAYBE use an ArrayVec to not default-init stuff
 
-        let bytes_read = stream.read(&mut buf)?;
-
-        if stream.peek(&mut [0; 1]).map(|read| read != 0).unwrap_or(false) {
-            // TODO: This definitely should be documented before landing in `master`.
-            eprintln!("Error: got message that's larger than allowed, assuming garbage and letting this drop");
-        } else {
-            println!("Got message {:?} ", BufDisplay(&buf));
-            stream.write(&buf[..bytes_read])?;
+        match read_validated_message_from_stream(&mut buf, &mut stream) {
+            Ok(bytes_read) => {
+                println!("Got message {:?} ", BufDisplay(&buf[..bytes_read]));
+                stream.write(&buf[..bytes_read])?;
+            }
+            Err(e) => eprintln!("Error: {}", e),
         }
     }
 }

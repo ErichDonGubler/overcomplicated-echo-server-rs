@@ -1,5 +1,5 @@
 use {
-    shared::{BUF_SIZE, BufDisplay},
+    shared::{BufDisplay, BUF_SIZE},
     std::{
         io::{Error as IoError, ErrorKind as IoErrorKind, Read, Result as IoResult, Write},
         net::{Shutdown, SocketAddr, TcpStream},
