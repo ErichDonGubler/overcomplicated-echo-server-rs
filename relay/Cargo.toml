@@ -6,4 +6,4 @@ edition = "2018"
 
 [dependencies]
 shared = { path = "../shared" }
-structopt = "0.3.12"
+structopt = "0.3.13"
